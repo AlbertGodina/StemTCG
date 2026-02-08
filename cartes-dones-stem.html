@@ -21,6 +21,19 @@
             --steam-leather: #4A2511;
             --steam-parchment: #F4E8D0;
             
+            /* Theme colors - Light Mode (default) */
+            --bg-primary: linear-gradient(135deg, #1a0f0a 0%, #3d2817 50%, #1a0f0a 100%);
+            --bg-secondary: rgba(44, 24, 16, 0.8);
+            --bg-panel: rgba(44, 24, 16, 0.9);
+            --text-primary: #F4E8D0;
+            --text-secondary: #C8A882;
+            --border-primary: #8B4513;
+            --input-bg: rgba(244, 232, 208, 0.1);
+            --input-focus-bg: rgba(244, 232, 208, 0.15);
+            --card-bg: #F4E8D0;
+            --card-content-bg: rgba(244, 232, 208, 0.95);
+            --shadow-color: rgba(0, 0, 0, 0.6);
+            
             /* Colors per disciplines */
             --physics: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
             --chemistry: linear-gradient(135deg, #065f46 0%, #10b981 100%);
@@ -32,15 +45,30 @@
             --medicine: linear-gradient(135deg, #7f1d1d 0%, #dc2626 100%);
         }
 
+        [data-theme="dark"] {
+            --bg-primary: linear-gradient(135deg, #0a0604 0%, #1a0f0a 50%, #0a0604 100%);
+            --bg-secondary: rgba(10, 6, 4, 0.95);
+            --bg-panel: rgba(20, 12, 8, 0.95);
+            --text-primary: #E8D5B7;
+            --text-secondary: #B8935F;
+            --border-primary: #6B3410;
+            --input-bg: rgba(244, 232, 208, 0.05);
+            --input-focus-bg: rgba(244, 232, 208, 0.1);
+            --card-bg: #2a1f18;
+            --card-content-bg: rgba(42, 31, 24, 0.95);
+            --shadow-color: rgba(0, 0, 0, 0.9);
+        }
+
         body {
             font-family: 'Crimson Text', serif;
-            background: linear-gradient(135deg, #1a0f0a 0%, #3d2817 50%, #1a0f0a 100%);
+            background: var(--bg-primary);
             background-attachment: fixed;
-            color: var(--steam-parchment);
+            color: var(--text-primary);
             min-height: 100vh;
             padding: 2rem 1rem;
             position: relative;
             overflow-x: hidden;
+            transition: background 0.5s ease, color 0.3s ease;
         }
 
         body::before {
@@ -68,14 +96,15 @@
             text-align: center;
             margin-bottom: 3rem;
             padding: 2rem;
-            background: rgba(44, 24, 16, 0.8);
-            border: 3px solid var(--steam-bronze);
+            background: var(--bg-secondary);
+            border: 3px solid var(--border-primary);
             border-radius: 15px;
             box-shadow: 
                 0 0 20px rgba(212, 175, 55, 0.3),
-                inset 0 0 30px rgba(0, 0, 0, 0.5);
+                inset 0 0 30px var(--shadow-color);
             position: relative;
             animation: fadeIn 0.8s ease-out;
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
 
         header::before,
@@ -140,14 +169,15 @@
         }
 
         .panel {
-            background: rgba(44, 24, 16, 0.9);
-            border: 2px solid var(--steam-bronze);
+            background: var(--bg-panel);
+            border: 2px solid var(--border-primary);
             border-radius: 12px;
             padding: 2rem;
             box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.6),
-                inset 0 0 20px rgba(0, 0, 0, 0.3);
+                0 8px 32px var(--shadow-color),
+                inset 0 0 20px var(--shadow-color);
             animation: slideIn 0.6s ease-out;
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
 
         @keyframes slideIn {
@@ -174,9 +204,10 @@
             display: block;
             font-family: 'Cinzel', serif;
             font-size: 1rem;
-            color: var(--steam-brass);
+            color: var(--text-secondary);
             margin-bottom: 0.5rem;
             font-weight: 600;
+            transition: color 0.3s ease;
         }
 
         input[type="text"],
@@ -185,10 +216,10 @@
         select {
             width: 100%;
             padding: 0.8rem;
-            background: rgba(244, 232, 208, 0.1);
-            border: 2px solid var(--steam-bronze);
+            background: var(--input-bg);
+            border: 2px solid var(--border-primary);
             border-radius: 6px;
-            color: var(--steam-parchment);
+            color: var(--text-primary);
             font-family: 'Crimson Text', serif;
             font-size: 1rem;
             transition: all 0.3s ease;
@@ -200,7 +231,7 @@
         select:focus {
             outline: none;
             border-color: var(--steam-gold);
-            background: rgba(244, 232, 208, 0.15);
+            background: var(--input-focus-bg);
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
         }
 
@@ -333,15 +364,15 @@
         .card {
             width: 100%;
             aspect-ratio: 2.5/3.5;
-            background: var(--steam-parchment);
+            background: var(--card-bg);
             border-radius: 20px;
             padding: 1rem;
             box-shadow: 
                 0 10px 40px rgba(0, 0, 0, 0.8),
-                inset 0 0 50px rgba(0, 0, 0, 0.2);
+                inset 0 0 50px var(--shadow-color);
             position: relative;
             overflow: hidden;
-            transition: transform 0.5s ease;
+            transition: transform 0.5s ease, background 0.3s ease;
             transform-style: preserve-3d;
             display: flex;
             flex-direction: column;
@@ -465,16 +496,17 @@
         .card-content {
             position: relative;
             z-index: 2;
-            background: rgba(244, 232, 208, 0.95);
+            background: var(--card-content-bg);
             padding: 0.6rem;
             border-radius: 8px;
-            border: 2px solid var(--steam-bronze);
+            border: 2px solid var(--border-primary);
             margin-bottom: 0.4rem;
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             overflow-y: auto;
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
 
         .card-discovery {
@@ -485,12 +517,20 @@
             line-height: 1.3;
         }
 
+        [data-theme="dark"] .card-discovery {
+            color: var(--steam-parchment);
+        }
+
         .card-discovery strong {
             font-family: 'Cinzel', serif;
             color: var(--steam-bronze);
             display: block;
             margin-bottom: 0.2rem;
             font-size: 0.7rem;
+        }
+
+        [data-theme="dark"] .card-discovery strong {
+            color: var(--steam-gold);
         }
 
         .card-quote {
@@ -501,6 +541,10 @@
             border-left: 2px solid var(--steam-gold);
             padding-left: 0.5rem;
             line-height: 1.2;
+        }
+
+        [data-theme="dark"] .card-quote {
+            color: var(--steam-brass);
         }
 
         .card-footer {
@@ -605,12 +649,13 @@
 
         .instructions-content {
             display: none;
-            background: rgba(74, 37, 17, 0.6);
+            background: var(--bg-secondary);
             padding: 2rem;
             border-radius: 12px;
-            border: 2px solid var(--steam-brass);
+            border: 2px solid var(--text-secondary);
             margin-top: 1rem;
             animation: slideDown 0.4s ease-out;
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
 
         @keyframes slideDown {
@@ -651,8 +696,166 @@
         .empty-gallery {
             text-align: center;
             padding: 3rem;
-            color: var(--steam-brass);
+            color: var(--text-secondary);
             font-style: italic;
+            transition: color 0.3s ease;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            padding: 0.8rem 1.5rem;
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--steam-bronze) 0%, var(--steam-copper) 100%);
+            color: var(--steam-parchment);
+            border: 2px solid var(--steam-gold);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .theme-toggle:active {
+            transform: translateY(0);
+        }
+
+        .header-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+            gap: 1rem;
+        }
+
+        /* Rarity Styles */
+        .rarity-badge {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            z-index: 10;
+            display: flex;
+            gap: 2px;
+            font-size: 1.2rem;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+        }
+
+        .rarity-star {
+            animation: twinkle 2s ease-in-out infinite;
+        }
+
+        .rarity-star:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .rarity-star:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .rarity-star:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+
+        .rarity-star:nth-child(5) {
+            animation-delay: 0.8s;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.9); }
+        }
+
+        /* Modal for zoomed card */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            width: 500px;
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            font-size: 3rem;
+            color: var(--steam-gold);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+        }
+
+        .modal-close:hover {
+            color: var(--steam-parchment);
+            transform: rotate(90deg);
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            header, .instructions-toggle, .panel:not(.gallery-panel), 
+            .theme-toggle, .gallery-card-actions, button {
+                display: none !important;
+            }
+
+            .gallery-panel {
+                background: white;
+                border: none;
+                box-shadow: none;
+                padding: 0;
+            }
+
+            .gallery-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10mm;
+                page-break-inside: avoid;
+            }
+
+            .gallery-card {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            .card {
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+                page-break-inside: avoid;
+            }
         }
 
         /* Responsive adjustments */
@@ -700,6 +903,12 @@
         <header>
             <h1>⚙ Generador de Cartes de Dones STEM ⚙</h1>
             <p class="subtitle">Visibilitzant les científiques del passat, present i futur</p>
+            <div class="header-controls">
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <span id="themeIcon">🌙</span>
+                    <span>Canviar Tema</span>
+                </button>
+            </div>
         </header>
 
         <div class="instructions-toggle">
@@ -713,9 +922,13 @@
                     <li><strong>Recopila dades:</strong> Necessitaràs el seu nom, una fotografia (URL o fitxer), dates de vida, àrea científica, principal descobriment i una frase cèlebre o curiositat.</li>
                     <li><strong>Omple el formulari:</strong> Introdueix tota la informació als camps corresponents del formulari de la part esquerra.</li>
                     <li><strong>Selecciona la disciplina:</strong> Tria l'àrea científica més representativa. Cada disciplina té un color diferent a la carta!</li>
+                    <li><strong>Tria la raresa:</strong> Assigna un nivell de raresa (1-5 estrelles) segons la importància o impacte de la científica. Això gamifica la col·lecció!</li>
                     <li><strong>Previsualitza:</strong> Veuràs la carta generada en temps real a la part dreta de la pantalla.</li>
+                    <li><strong>Amplia cartes:</strong> Clica sobre qualsevol carta (previsualització o galeria) per veure-la ampliada amb zoom!</li>
                     <li><strong>Afegeix a la galeria:</strong> Si estàs content/a amb el resultat, clica "Afegir a Galeria" per guardar-la.</li>
                     <li><strong>Descarrega:</strong> Pots descarregar cada carta individualment com a imatge PNG des de la galeria.</li>
+                    <li><strong>Exporta/Importa:</strong> Guarda tota la teva col·lecció en un fitxer JSON per compartir amb companys o fer còpia de seguretat.</li>
+                    <li><strong>Imprimeix:</strong> Usa el botó "Imprimir Cartes" per obtenir un layout optimitzat per a paper A4 (3 cartes per fila).</li>
                     <li><strong>Crea col·lecció:</strong> Fes tantes cartes com vulguis per crear la teva col·lecció de Dones STEM!</li>
                 </ul>
             </div>
@@ -743,6 +956,18 @@
                             <option value="technology">Tecnologia</option>
                             <option value="astronomy">Astronomia</option>
                             <option value="medicine">Medicina</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rarity">Raresa de la Carta *</label>
+                        <select id="rarity" required>
+                            <option value="">-- Selecciona raresa --</option>
+                            <option value="1">⭐ Comú (1 estrella)</option>
+                            <option value="2">⭐⭐ Poc comú (2 estrelles)</option>
+                            <option value="3">⭐⭐⭐ Rara (3 estrelles)</option>
+                            <option value="4">⭐⭐⭐⭐ Épica (4 estrelles)</option>
+                            <option value="5">⭐⭐⭐⭐⭐ Llegendària (5 estrelles)</option>
                         </select>
                     </div>
 
@@ -793,11 +1018,15 @@
                 <h2>👁️ Previsualització</h2>
                 <div class="card-preview-area">
                     <div class="card-container">
-                        <div class="card" id="previewCard">
+                        <div class="card" id="previewCard" onclick="openModal(this)">
                             <div class="card-corner-decoration"></div>
                             <div class="card-corner-decoration"></div>
                             <div class="card-corner-decoration"></div>
                             <div class="card-corner-decoration"></div>
+                            
+                            <div class="rarity-badge" id="previewRarity">
+                                <span class="rarity-star">⭐</span>
+                            </div>
                             
                             <div class="card-header">
                                 <div class="card-discipline" id="previewDiscipline">DISCIPLINA</div>
@@ -830,6 +1059,18 @@
         <!-- Gallery Panel -->
         <div class="panel gallery-panel">
             <h2>🎴 Galeria de Cartes</h2>
+            <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                <button onclick="exportCollection()">
+                    📦 Exportar Col·lecció (JSON)
+                </button>
+                <button onclick="document.getElementById('importFile').click()" class="secondary">
+                    📥 Importar Col·lecció
+                </button>
+                <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importCollection(event)">
+                <button onclick="window.print()" class="secondary">
+                    🖨️ Imprimir Cartes
+                </button>
+            </div>
             <div id="gallery" class="gallery-grid">
                 <div class="empty-gallery">
                     <p>📭 La galeria està buida. Crea la teva primera carta!</p>
@@ -838,10 +1079,41 @@
         </div>
     </div>
 
+    <!-- Modal for zoomed card view -->
+    <div id="cardModal" class="modal" onclick="closeModal()">
+        <span class="modal-close">&times;</span>
+        <div class="modal-content" id="modalCardContent" onclick="event.stopPropagation()">
+        </div>
+    </div>
+
     <script>
         // Initialize
         let cards = [];
         let currentImageData = null;
+
+        // Theme Management
+        function initTheme() {
+            const savedTheme = localStorage.getItem('stemCardsTheme') || 'light';
+            setTheme(savedTheme);
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            setTheme(newTheme);
+        }
+
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('stemCardsTheme', theme);
+            
+            const themeIcon = document.getElementById('themeIcon');
+            if (theme === 'dark') {
+                themeIcon.textContent = '☀️';
+            } else {
+                themeIcon.textContent = '🌙';
+            }
+        }
 
         // Load cards from localStorage
         function loadCards() {
@@ -893,6 +1165,11 @@
             }
         });
 
+        document.getElementById('rarity').addEventListener('change', function(e) {
+            const rarity = parseInt(e.target.value) || 1;
+            updateRarityDisplay('previewRarity', rarity);
+        });
+
         document.getElementById('dates').addEventListener('input', function(e) {
             document.getElementById('previewDates').textContent = e.target.value || 'Dates';
         });
@@ -938,6 +1215,36 @@
             wrapper.innerHTML = `<img src="${src}" alt="Preview" class="card-image">`;
         }
 
+        // Update rarity display
+        function updateRarityDisplay(elementId, rarity) {
+            const badge = document.getElementById(elementId);
+            let stars = '';
+            for (let i = 0; i < rarity; i++) {
+                stars += '<span class="rarity-star">⭐</span>';
+            }
+            badge.innerHTML = stars;
+        }
+
+        // Modal functions
+        function openModal(cardElement) {
+            const modal = document.getElementById('cardModal');
+            const modalContent = document.getElementById('modalCardContent');
+            modalContent.innerHTML = cardElement.outerHTML;
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('cardModal');
+            modal.classList.remove('active');
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
         // Add card to gallery
         function addToGallery() {
             const form = document.getElementById('cardForm');
@@ -952,6 +1259,7 @@
                 id: Date.now(),
                 name: document.getElementById('name').value,
                 discipline: document.getElementById('discipline').value,
+                rarity: parseInt(document.getElementById('rarity').value),
                 dates: document.getElementById('dates').value,
                 discovery: document.getElementById('discovery').value,
                 quote: document.getElementById('quote').value,
@@ -992,12 +1300,21 @@
 
         // Generate card HTML
         function generateCardHTML(card) {
+            let rarityStars = '';
+            for (let i = 0; i < (card.rarity || 1); i++) {
+                rarityStars += '<span class="rarity-star">⭐</span>';
+            }
+            
             return `
-                <div class="card" id="card-${card.id}">
+                <div class="card" id="card-${card.id}" onclick="openModal(this)">
                     <div class="card-corner-decoration"></div>
                     <div class="card-corner-decoration"></div>
                     <div class="card-corner-decoration"></div>
                     <div class="card-corner-decoration"></div>
+                    
+                    <div class="rarity-badge">
+                        ${rarityStars}
+                    </div>
                     
                     <div class="card-header">
                         <div class="card-discipline">${disciplineNames[card.discipline].toUpperCase()}</div>
@@ -1095,10 +1412,70 @@
                 document.getElementById('previewDiscovery').textContent = 'Escriu el descobriment o contribució principal...';
                 document.getElementById('previewQuote').textContent = '"Afegeix una frase cèlebre o curiositat..."';
                 document.getElementById('previewImageWrapper').innerHTML = '<div class="card-placeholder">Afegeix una imatge per veure-la aquí</div>';
+                updateRarityDisplay('previewRarity', 1);
             }
         }
 
+        // Export collection as JSON
+        function exportCollection() {
+            if (cards.length === 0) {
+                alert('⚠️ No hi ha cartes per exportar!');
+                return;
+            }
+
+            const dataStr = JSON.stringify(cards, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `coleccio-dones-stem-${Date.now()}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+
+            alert(`✅ S'han exportat ${cards.length} cartes correctament!`);
+        }
+
+        // Import collection from JSON
+        function importCollection(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedCards = JSON.parse(e.target.result);
+                    
+                    if (!Array.isArray(importedCards)) {
+                        throw new Error('Format invàlid');
+                    }
+
+                    const confirmMsg = `Vols importar ${importedCards.length} cartes?\n\n` +
+                                     `Això afegirà les cartes a la teva col·lecció actual.`;
+                    
+                    if (confirm(confirmMsg)) {
+                        // Add unique IDs to avoid conflicts
+                        importedCards.forEach(card => {
+                            card.id = Date.now() + Math.random();
+                            cards.push(card);
+                        });
+                        
+                        saveCards();
+                        renderGallery();
+                        alert(`✅ S'han importat ${importedCards.length} cartes correctament!`);
+                    }
+                } catch (error) {
+                    alert('❌ Error al importar: El fitxer no és vàlid o està corromput.');
+                    console.error('Import error:', error);
+                }
+            };
+            reader.readAsText(file);
+            
+            // Reset file input
+            event.target.value = '';
+        }
+
         // Initialize app
+        initTheme();
         loadCards();
     </script>
 </body>
