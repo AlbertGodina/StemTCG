@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Cartes de Dones STEM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --steam-bronze: #8B4513;
+            --steam-copper: #B87333;
+            --steam-brass: #C8A882;
+            --steam-gold: #D4AF37;
+            --steam-dark: #2C1810;
+            --steam-leather: #4A2511;
+            --steam-parchment: #F4E8D0;
+            
+            /* Colors per disciplines */
+            --physics: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            --chemistry: linear-gradient(135deg, #065f46 0%, #10b981 100%);
+            --biology: linear-gradient(135deg, #7c2d12 0%, #f97316 100%);
+            --mathematics: linear-gradient(135deg, #701a75 0%, #a855f7 100%);
+            --engineering: linear-gradient(135deg, #78350f 0%, #d97706 100%);
+            --technology: linear-gradient(135deg, #831843 0%, #ec4899 100%);
+            --astronomy: linear-gradient(135deg, #1e1b4b 0%, #6366f1 100%);
+            --medicine: linear-gradient(135deg, #7f1d1d 0%, #dc2626 100%);
+        }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            background: linear-gradient(135deg, #1a0f0a 0%, #3d2817 50%, #1a0f0a 100%);
+            background-attachment: fixed;
+            color: var(--steam-parchment);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(139, 69, 19, 0.03) 2px, rgba(139, 69, 19, 0.03) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(139, 69, 19, 0.03) 2px, rgba(139, 69, 19, 0.03) 4px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: rgba(44, 24, 16, 0.8);
+            border: 3px solid var(--steam-bronze);
+            border-radius: 15px;
+            box-shadow: 
+                0 0 20px rgba(212, 175, 55, 0.3),
+                inset 0 0 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        header::before,
+        header::after {
+            content: '⚙';
+            position: absolute;
+            font-size: 3rem;
+            color: var(--steam-brass);
+            opacity: 0.3;
+            animation: rotate 20s linear infinite;
+        }
+
+        header::before {
+            top: -10px;
+            left: 20px;
+        }
+
+        header::after {
+            bottom: -10px;
+            right: 20px;
+            animation-direction: reverse;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--steam-gold);
+            text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.8),
+                0 0 20px rgba(212, 175, 55, 0.5);
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--steam-brass);
+            font-style: italic;
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: rgba(44, 24, 16, 0.9);
+            border: 2px solid var(--steam-bronze);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.6),
+                inset 0 0 20px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .panel h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--steam-gold);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+            border-bottom: 2px solid var(--steam-bronze);
+            padding-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            color: var(--steam-brass);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        input[type="text"],
+        input[type="url"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(244, 232, 208, 0.1);
+            border: 2px solid var(--steam-bronze);
+            border-radius: 6px;
+            color: var(--steam-parchment);
+            font-family: 'Crimson Text', serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="url"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--steam-gold);
+            background: rgba(244, 232, 208, 0.15);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23C8A882' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input-label {
+            display: block;
+            padding: 0.8rem;
+            background: var(--steam-bronze);
+            color: var(--steam-parchment);
+            text-align: center;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid var(--steam-copper);
+        }
+
+        .file-input-label:hover {
+            background: var(--steam-copper);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            transform: translateY(-2px);
+        }
+
+        input[type="file"] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-name {
+            font-size: 0.9rem;
+            color: var(--steam-brass);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        button {
+            flex: 1;
+            min-width: 150px;
+            padding: 1rem 2rem;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--steam-bronze) 0%, var(--steam-copper) 100%);
+            color: var(--steam-parchment);
+            border: 2px solid var(--steam-gold);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
+            border-color: var(--steam-parchment);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        button.secondary {
+            background: linear-gradient(135deg, var(--steam-leather) 0%, var(--steam-dark) 100%);
+            border-color: var(--steam-bronze);
+        }
+
+        /* Card Preview */
+        .card-preview-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .card-container {
+            perspective: 1500px;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            width: 100%;
+            aspect-ratio: 2.5/3.5;
+            background: var(--steam-parchment);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.8),
+                inset 0 0 50px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.5s ease;
+            transform-style: preserve-3d;
+        }
+
+        .card:hover {
+            transform: rotateY(5deg) rotateX(-5deg);
+        }
+
+        /* Card border decorations */
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 10px;
+            border: 3px solid var(--steam-bronze);
+            border-radius: 15px;
+            pointer-events: none;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(139, 69, 19, 0.05) 10px,
+                    rgba(139, 69, 19, 0.05) 20px
+                );
+            pointer-events: none;
+            border-radius: 20px;
+        }
+
+        .card-header {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(44, 24, 16, 0.8);
+            border-radius: 10px;
+            border: 2px solid var(--steam-gold);
+        }
+
+        .card-discipline {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--steam-gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.3rem;
+        }
+
+        .card-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--steam-parchment);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+            line-height: 1.2;
+        }
+
+        .card-dates {
+            font-size: 0.9rem;
+            color: var(--steam-brass);
+            font-style: italic;
+            margin-top: 0.3rem;
+        }
+
+        .card-image-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1;
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 3px solid var(--steam-bronze);
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.6),
+                inset 0 0 20px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+        }
+
+        .card-image-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--physics);
+            opacity: 0.15;
+            z-index: 1;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(44, 24, 16, 0.9) 0%, rgba(74, 37, 17, 0.9) 100%);
+            color: var(--steam-brass);
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+            background: rgba(244, 232, 208, 0.95);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 2px solid var(--steam-bronze);
+            margin-bottom: 0.8rem;
+        }
+
+        .card-discovery {
+            font-family: 'Crimson Text', serif;
+            font-size: 0.95rem;
+            color: var(--steam-dark);
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .card-discovery strong {
+            font-family: 'Cinzel', serif;
+            color: var(--steam-bronze);
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .card-quote {
+            font-family: 'Crimson Text', serif;
+            font-size: 0.85rem;
+            font-style: italic;
+            color: var(--steam-leather);
+            border-left: 3px solid var(--steam-gold);
+            padding-left: 0.8rem;
+            line-height: 1.3;
+        }
+
+        .card-footer {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 0.5rem;
+        }
+
+        .card-corner-decoration {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--steam-gold);
+            z-index: 3;
+        }
+
+        .card-corner-decoration:nth-child(1) {
+            top: 15px;
+            left: 15px;
+            border-right: none;
+            border-bottom: none;
+            border-radius: 10px 0 0 0;
+        }
+
+        .card-corner-decoration:nth-child(2) {
+            top: 15px;
+            right: 15px;
+            border-left: none;
+            border-bottom: none;
+            border-radius: 0 10px 0 0;
+        }
+
+        .card-corner-decoration:nth-child(3) {
+            bottom: 15px;
+            left: 15px;
+            border-right: none;
+            border-top: none;
+            border-radius: 0 0 0 10px;
+        }
+
+        .card-corner-decoration:nth-child(4) {
+            bottom: 15px;
+            right: 15px;
+            border-left: none;
+            border-top: none;
+            border-radius: 0 0 10px 0;
+        }
+
+        /* Gallery */
+        .gallery-panel {
+            grid-column: 1 / -1;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .gallery-card {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .gallery-card:hover {
+            transform: scale(1.05) translateY(-5px);
+        }
+
+        .gallery-card .card {
+            width: 100%;
+        }
+
+        .gallery-card-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .gallery-card-actions button {
+            flex: 1;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            min-width: auto;
+        }
+
+        .delete-btn {
+            background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
+        }
+
+        .delete-btn:hover {
+            background: linear-gradient(135deg, #991b1b 0%, #b91c1c 100%);
+        }
+
+        /* Instructions */
+        .instructions-toggle {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .instructions-content {
+            display: none;
+            background: rgba(74, 37, 17, 0.6);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 2px solid var(--steam-brass);
+            margin-top: 1rem;
+            animation: slideDown 0.4s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; max-height: 0; }
+            to { opacity: 1; max-height: 1000px; }
+        }
+
+        .instructions-content.active {
+            display: block;
+        }
+
+        .instructions-content h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--steam-gold);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .instructions-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .instructions-content li {
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .instructions-content li::before {
+            content: '⚙';
+            position: absolute;
+            left: 0;
+            color: var(--steam-brass);
+        }
+
+        .empty-gallery {
+            text-align: center;
+            padding: 3rem;
+            color: var(--steam-brass);
+            font-style: italic;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+
+            .panel {
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 1.5rem;
+            }
+        }
+
+        /* Loading animation */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .gear-icon {
+            display: inline-block;
+            animation: rotate 2s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚙ Generador de Cartes de Dones STEM ⚙</h1>
+            <p class="subtitle">Visibilitzant les científiques del passat, present i futur</p>
+        </header>
+
+        <div class="instructions-toggle">
+            <button onclick="toggleInstructions()" class="secondary">
+                📖 Instruccions per a l'alumnat
+            </button>
+            <div id="instructions" class="instructions-content">
+                <h3>Com crear la teva carta de Dona STEM</h3>
+                <ul>
+                    <li><strong>Investiga:</strong> Busca informació sobre una dona científica, tecnòloga, enginyera o matemàtica que t'interessi.</li>
+                    <li><strong>Recopila dades:</strong> Necessitaràs el seu nom, una fotografia (URL o fitxer), dates de vida, àrea científica, principal descobriment i una frase cèlebre o curiositat.</li>
+                    <li><strong>Omple el formulari:</strong> Introdueix tota la informació als camps corresponents del formulari de la part esquerra.</li>
+                    <li><strong>Selecciona la disciplina:</strong> Tria l'àrea científica més representativa. Cada disciplina té un color diferent a la carta!</li>
+                    <li><strong>Previsualitza:</strong> Veuràs la carta generada en temps real a la part dreta de la pantalla.</li>
+                    <li><strong>Afegeix a la galeria:</strong> Si estàs content/a amb el resultat, clica "Afegir a Galeria" per guardar-la.</li>
+                    <li><strong>Descarrega:</strong> Pots descarregar cada carta individualment com a imatge PNG des de la galeria.</li>
+                    <li><strong>Crea col·lecció:</strong> Fes tantes cartes com vulguis per crear la teva col·lecció de Dones STEM!</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="main-layout">
+            <!-- Form Panel -->
+            <div class="panel">
+                <h2>✨ Crea la teva Carta</h2>
+                <form id="cardForm">
+                    <div class="form-group">
+                        <label for="name">Nom Complet *</label>
+                        <input type="text" id="name" required placeholder="Ex: Marie Curie">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="discipline">Disciplina Científica *</label>
+                        <select id="discipline" required>
+                            <option value="">-- Selecciona una disciplina --</option>
+                            <option value="physics">Física</option>
+                            <option value="chemistry">Química</option>
+                            <option value="biology">Biologia</option>
+                            <option value="mathematics">Matemàtiques</option>
+                            <option value="engineering">Enginyeria</option>
+                            <option value="technology">Tecnologia</option>
+                            <option value="astronomy">Astronomia</option>
+                            <option value="medicine">Medicina</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dates">Dates (naixement - mort o actualitat) *</label>
+                        <input type="text" id="dates" required placeholder="Ex: 1867 - 1934">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="discovery">Principal Descobriment / Contribució *</label>
+                        <textarea id="discovery" required placeholder="Ex: Descobriment de la radioactivitat i els elements Poloni i Radi"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quote">Frase Cèlebre o Curiositat *</label>
+                        <textarea id="quote" required placeholder="Ex: 'Res a la vida s'ha de témer, només s'ha d'entendre'"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fotografia</label>
+                        <div class="file-input-wrapper">
+                            <label for="imageFile" class="file-input-label">
+                                📁 Pujar Imatge des del teu ordinador
+                            </label>
+                            <input type="file" id="imageFile" accept="image/*">
+                        </div>
+                        <div class="file-name" id="fileName"></div>
+                        
+                        <div style="text-align: center; margin: 1rem 0; color: var(--steam-brass);">- O -</div>
+                        
+                        <label for="imageUrl">URL de la Imatge</label>
+                        <input type="url" id="imageUrl" placeholder="https://exemple.com/foto.jpg">
+                    </div>
+
+                    <div class="button-group">
+                        <button type="button" onclick="addToGallery()">
+                            ➕ Afegir a Galeria
+                        </button>
+                        <button type="button" onclick="clearForm()" class="secondary">
+                            🔄 Netejar Formulari
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Preview Panel -->
+            <div class="panel">
+                <h2>👁️ Previsualització</h2>
+                <div class="card-preview-area">
+                    <div class="card-container">
+                        <div class="card" id="previewCard">
+                            <div class="card-corner-decoration"></div>
+                            <div class="card-corner-decoration"></div>
+                            <div class="card-corner-decoration"></div>
+                            <div class="card-corner-decoration"></div>
+                            
+                            <div class="card-header">
+                                <div class="card-discipline" id="previewDiscipline">DISCIPLINA</div>
+                                <div class="card-name" id="previewName">Nom de la Científica</div>
+                                <div class="card-dates" id="previewDates">Dates</div>
+                            </div>
+                            
+                            <div class="card-image-wrapper" id="previewImageWrapper">
+                                <div class="card-placeholder">Afegeix una imatge per veure-la aquí</div>
+                            </div>
+                            
+                            <div class="card-content">
+                                <div class="card-discovery">
+                                    <strong>Descobriment Principal:</strong>
+                                    <span id="previewDiscovery">Escriu el descobriment o contribució principal...</span>
+                                </div>
+                                <div class="card-quote" id="previewQuote">
+                                    "Afegeix una frase cèlebre o curiositat..."
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" onclick="downloadCard()" style="width: 100%; max-width: 400px;">
+                        💾 Descarregar Carta Actual
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gallery Panel -->
+        <div class="panel gallery-panel">
+            <h2>🎴 Galeria de Cartes</h2>
+            <div id="gallery" class="gallery-grid">
+                <div class="empty-gallery">
+                    <p>📭 La galeria està buida. Crea la teva primera carta!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize
+        let cards = [];
+        let currentImageData = null;
+
+        // Load cards from localStorage
+        function loadCards() {
+            const saved = localStorage.getItem('stemCards');
+            if (saved) {
+                cards = JSON.parse(saved);
+                renderGallery();
+            }
+        }
+
+        // Save cards to localStorage
+        function saveCards() {
+            localStorage.setItem('stemCards', JSON.stringify(cards));
+        }
+
+        // Toggle instructions
+        function toggleInstructions() {
+            const instructions = document.getElementById('instructions');
+            instructions.classList.toggle('active');
+        }
+
+        // Discipline translations
+        const disciplineNames = {
+            physics: 'Física',
+            chemistry: 'Química',
+            biology: 'Biologia',
+            mathematics: 'Matemàtiques',
+            engineering: 'Enginyeria',
+            technology: 'Tecnologia',
+            astronomy: 'Astronomia',
+            medicine: 'Medicina'
+        };
+
+        // Update preview in real-time
+        document.getElementById('name').addEventListener('input', function(e) {
+            document.getElementById('previewName').textContent = e.target.value || 'Nom de la Científica';
+        });
+
+        document.getElementById('discipline').addEventListener('change', function(e) {
+            const discipline = e.target.value;
+            const wrapper = document.getElementById('previewImageWrapper');
+            
+            if (discipline) {
+                document.getElementById('previewDiscipline').textContent = disciplineNames[discipline].toUpperCase();
+                wrapper.style.setProperty('--card-gradient', `var(--${discipline})`);
+                wrapper.querySelector('::before') && (wrapper.style.background = `var(--${discipline})`);
+            } else {
+                document.getElementById('previewDiscipline').textContent = 'DISCIPLINA';
+            }
+        });
+
+        document.getElementById('dates').addEventListener('input', function(e) {
+            document.getElementById('previewDates').textContent = e.target.value || 'Dates';
+        });
+
+        document.getElementById('discovery').addEventListener('input', function(e) {
+            document.getElementById('previewDiscovery').textContent = e.target.value || 'Escriu el descobriment o contribució principal...';
+        });
+
+        document.getElementById('quote').addEventListener('input', function(e) {
+            document.getElementById('previewQuote').textContent = e.target.value ? `"${e.target.value}"` : '"Afegeix una frase cèlebre o curiositat..."';
+        });
+
+        // Handle image file upload
+        document.getElementById('imageFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                document.getElementById('fileName').textContent = `📎 ${file.name}`;
+                document.getElementById('imageUrl').value = ''; // Clear URL input
+                
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    currentImageData = event.target.result;
+                    updatePreviewImage(currentImageData);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Handle image URL input
+        document.getElementById('imageUrl').addEventListener('input', function(e) {
+            const url = e.target.value;
+            if (url) {
+                document.getElementById('imageFile').value = ''; // Clear file input
+                document.getElementById('fileName').textContent = '';
+                currentImageData = url;
+                updatePreviewImage(url);
+            }
+        });
+
+        // Update preview image
+        function updatePreviewImage(src) {
+            const wrapper = document.getElementById('previewImageWrapper');
+            wrapper.innerHTML = `<img src="${src}" alt="Preview" class="card-image">`;
+        }
+
+        // Add card to gallery
+        function addToGallery() {
+            const form = document.getElementById('cardForm');
+            
+            // Validate form
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const cardData = {
+                id: Date.now(),
+                name: document.getElementById('name').value,
+                discipline: document.getElementById('discipline').value,
+                dates: document.getElementById('dates').value,
+                discovery: document.getElementById('discovery').value,
+                quote: document.getElementById('quote').value,
+                image: currentImageData || ''
+            };
+
+            cards.push(cardData);
+            saveCards();
+            renderGallery();
+            
+            // Show success message
+            alert('✅ Carta afegida a la galeria correctament!');
+        }
+
+        // Render gallery
+        function renderGallery() {
+            const gallery = document.getElementById('gallery');
+            
+            if (cards.length === 0) {
+                gallery.innerHTML = '<div class="empty-gallery"><p>📭 La galeria està buida. Crea la teva primera carta!</p></div>';
+                return;
+            }
+
+            gallery.innerHTML = cards.map(card => `
+                <div class="gallery-card" data-id="${card.id}">
+                    ${generateCardHTML(card)}
+                    <div class="gallery-card-actions">
+                        <button onclick="downloadCardFromGallery(${card.id})">
+                            💾 Descarregar
+                        </button>
+                        <button onclick="deleteCard(${card.id})" class="delete-btn">
+                            🗑️ Eliminar
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Generate card HTML
+        function generateCardHTML(card) {
+            return `
+                <div class="card" id="card-${card.id}">
+                    <div class="card-corner-decoration"></div>
+                    <div class="card-corner-decoration"></div>
+                    <div class="card-corner-decoration"></div>
+                    <div class="card-corner-decoration"></div>
+                    
+                    <div class="card-header">
+                        <div class="card-discipline">${disciplineNames[card.discipline].toUpperCase()}</div>
+                        <div class="card-name">${card.name}</div>
+                        <div class="card-dates">${card.dates}</div>
+                    </div>
+                    
+                    <div class="card-image-wrapper">
+                        ${card.image ? `<img src="${card.image}" alt="${card.name}" class="card-image">` : '<div class="card-placeholder">Sense imatge</div>'}
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="card-discovery">
+                            <strong>Descobriment Principal:</strong>
+                            ${card.discovery}
+                        </div>
+                        <div class="card-quote">"${card.quote}"</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Download current preview card
+        async function downloadCard() {
+            const name = document.getElementById('name').value || 'Carta_STEM';
+            const card = document.getElementById('previewCard');
+            await downloadCardElement(card, name);
+        }
+
+        // Download card from gallery
+        async function downloadCardFromGallery(id) {
+            const card = cards.find(c => c.id === id);
+            if (!card) return;
+            
+            const cardElement = document.getElementById(`card-${id}`);
+            await downloadCardElement(cardElement, card.name);
+        }
+
+        // Download card element as image
+        async function downloadCardElement(element, filename) {
+            try {
+                // Use html2canvas library via CDN
+                if (!window.html2canvas) {
+                    const script = document.createElement('script');
+                    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+                    document.head.appendChild(script);
+                    
+                    await new Promise(resolve => {
+                        script.onload = resolve;
+                    });
+                }
+
+                const canvas = await html2canvas(element, {
+                    scale: 3,
+                    backgroundColor: '#F4E8D0',
+                    logging: false,
+                    useCORS: true,
+                    allowTaint: true
+                });
+
+                canvas.toBlob(blob => {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${filename.replace(/\s+/g, '_')}.png`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                });
+            } catch (error) {
+                console.error('Error al descarregar:', error);
+                alert('❌ Error al descarregar la carta. Si us plau, torna-ho a intentar.');
+            }
+        }
+
+        // Delete card
+        function deleteCard(id) {
+            if (confirm('Estàs segur/a que vols eliminar aquesta carta?')) {
+                cards = cards.filter(c => c.id !== id);
+                saveCards();
+                renderGallery();
+            }
+        }
+
+        // Clear form
+        function clearForm() {
+            if (confirm('Vols netejar tot el formulari?')) {
+                document.getElementById('cardForm').reset();
+                document.getElementById('fileName').textContent = '';
+                currentImageData = null;
+                
+                // Reset preview
+                document.getElementById('previewName').textContent = 'Nom de la Científica';
+                document.getElementById('previewDiscipline').textContent = 'DISCIPLINA';
+                document.getElementById('previewDates').textContent = 'Dates';
+                document.getElementById('previewDiscovery').textContent = 'Escriu el descobriment o contribució principal...';
+                document.getElementById('previewQuote').textContent = '"Afegeix una frase cèlebre o curiositat..."';
+                document.getElementById('previewImageWrapper').innerHTML = '<div class="card-placeholder">Afegeix una imatge per veure-la aquí</div>';
+            }
+        }
+
+        // Initialize app
+        loadCards();
+    </script>
+</body>
+</html>
