@@ -858,6 +858,279 @@
             }
         }
 
+        /* Type Chart Styles */
+        .type-chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .type-card {
+            background: var(--input-bg);
+            border: 2px solid var(--border-primary);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .type-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px var(--shadow-color);
+            border-color: var(--steam-gold);
+        }
+
+        .type-card-header {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: var(--steam-gold);
+            margin-bottom: 1rem;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .type-relationships {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .type-relation {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .type-relation.strong {
+            color: #22c55e;
+        }
+
+        .type-relation.weak {
+            color: #ef4444;
+        }
+
+        .type-relation-icon {
+            font-size: 1.2rem;
+            min-width: 25px;
+        }
+
+        /* Strength/Weakness badges on cards */
+        .card-types-info {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            right: 12px;
+            z-index: 10;
+            display: flex;
+            gap: 0.3rem;
+            font-size: 0.65rem;
+            justify-content: space-between;
+        }
+
+        .types-badge {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 0.3rem 0.5rem;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            flex: 1;
+        }
+
+        .types-badge.strong {
+            border: 1px solid #22c55e;
+        }
+
+        .types-badge.weak {
+            border: 1px solid #ef4444;
+        }
+
+        .types-badge-icon {
+            font-size: 0.8rem;
+        }
+
+        .types-badge-text {
+            color: var(--steam-parchment);
+            font-family: 'Crimson Text', serif;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Battle Mode Styles */
+        .battle-mode-panel {
+            background: var(--bg-panel);
+            border: 3px solid var(--steam-gold);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 
+                0 8px 32px var(--shadow-color),
+                inset 0 0 20px var(--shadow-color);
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .battle-arena {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 2rem;
+            align-items: center;
+            margin: 2rem 0;
+        }
+
+        .battle-slot {
+            text-align: center;
+        }
+
+        .battle-slot-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: var(--steam-gold);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .battle-card-container {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            min-height: 420px;
+            border: 3px dashed var(--border-primary);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--input-bg);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .battle-card-container:hover {
+            border-color: var(--steam-gold);
+            background: var(--input-focus-bg);
+        }
+
+        .battle-card-container.filled {
+            border-style: solid;
+            border-color: var(--steam-gold);
+            cursor: default;
+        }
+
+        .battle-placeholder {
+            color: var(--text-secondary);
+            font-style: italic;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .battle-vs {
+            font-family: 'Cinzel', serif;
+            font-size: 4rem;
+            color: var(--steam-gold);
+            text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.8),
+                0 0 20px rgba(212, 175, 55, 0.5);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .battle-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .battle-result {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border: 3px solid var(--steam-gold);
+            border-radius: 12px;
+            text-align: center;
+            display: none;
+            animation: slideDown 0.5s ease;
+        }
+
+        .battle-result.show {
+            display: block;
+        }
+
+        .battle-winner {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: var(--steam-gold);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .battle-score {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin: 1rem 0;
+        }
+
+        .battle-explanation {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 1rem auto;
+        }
+
+        .score-breakdown {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .score-card {
+            background: var(--input-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 2px solid var(--border-primary);
+        }
+
+        .score-card-title {
+            font-family: 'Cinzel', serif;
+            color: var(--steam-brass);
+            margin-bottom: 0.5rem;
+        }
+
+        .score-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.3rem 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 968px) {
+            .battle-arena {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .battle-vs {
+                font-size: 2.5rem;
+                transform: rotate(90deg);
+                margin: 1rem 0;
+            }
+
+            .score-breakdown {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             body {
@@ -931,6 +1204,19 @@
                     <li><strong>Imprimeix:</strong> Usa el botó "Imprimir Cartes" per obtenir un layout optimitzat per a paper A4 (3 cartes per fila).</li>
                     <li><strong>Crea col·lecció:</strong> Fes tantes cartes com vulguis per crear la teva col·lecció de Dones STEM!</li>
                 </ul>
+            </div>
+        </div>
+
+        <div class="instructions-toggle">
+            <button onclick="toggleTypeChart()" class="secondary">
+                ⚔️ Taula de Fortaleses i Debilitats
+            </button>
+            <div id="typeChartSection" class="instructions-content">
+                <h3>Taula de Fortaleses i Debilitats per Disciplines</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-style: italic;">
+                    Les disciplines científiques es relacionen entre elles. Cada disciplina té fortaleses i debilitats basades en com s'interconnecten en la ciència real!
+                </p>
+                <div class="type-chart-grid" id="typeChart"></div>
             </div>
         </div>
 
@@ -1047,12 +1333,65 @@
                                     "Afegeix una frase cèlebre o curiositat..."
                                 </div>
                             </div>
+                            
+                            <div class="card-types-info" id="previewTypesInfo">
+                                <div class="types-badge strong">
+                                    <span class="types-badge-icon">↗️</span>
+                                    <span class="types-badge-text">Selecciona disciplina</span>
+                                </div>
+                                <div class="types-badge weak">
+                                    <span class="types-badge-icon">↘️</span>
+                                    <span class="types-badge-text">Selecciona disciplina</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <button type="button" onclick="downloadCard()" style="width: 100%; max-width: 400px;">
                         💾 Descarregar Carta Actual
                     </button>
                 </div>
+            </div>
+        </div>
+
+        <!-- Battle Mode Panel -->
+        <div class="panel battle-mode-panel">
+            <h2>⚔️ Mode Batalla</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 1rem;">
+                Selecciona dues cartes de la teva galeria per veure qui guanyaria en una batalla científica!
+            </p>
+
+            <div class="battle-arena">
+                <div class="battle-slot">
+                    <div class="battle-slot-title">Científica 1</div>
+                    <div class="battle-card-container" id="battleSlot1" onclick="openBattleCardSelector(1)">
+                        <div class="battle-placeholder">Clica per seleccionar una carta</div>
+                    </div>
+                </div>
+
+                <div class="battle-vs">VS</div>
+
+                <div class="battle-slot">
+                    <div class="battle-slot-title">Científica 2</div>
+                    <div class="battle-card-container" id="battleSlot2" onclick="openBattleCardSelector(2)">
+                        <div class="battle-placeholder">Clica per seleccionar una carta</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="battle-controls">
+                <button onclick="startBattle()" id="battleBtn" disabled>
+                    ⚔️ Iniciar Batalla!
+                </button>
+                <button onclick="resetBattle()" class="secondary">
+                    🔄 Reiniciar
+                </button>
+            </div>
+
+            <div class="battle-result" id="battleResult">
+                <div class="battle-winner" id="battleWinner"></div>
+                <div class="battle-score" id="battleScore"></div>
+                <div class="battle-explanation" id="battleExplanation"></div>
+                <div class="score-breakdown" id="scoreBreakdown"></div>
             </div>
         </div>
 
@@ -1086,10 +1425,25 @@
         </div>
     </div>
 
+    <!-- Modal for battle card selection -->
+    <div id="battleSelectorModal" class="modal">
+        <span class="modal-close" onclick="closeBattleSelector()">&times;</span>
+        <div class="modal-content" style="max-width: 90%; width: 1200px; max-height: 80vh; overflow-y: auto; background: var(--bg-panel); padding: 2rem; border-radius: 12px;" onclick="event.stopPropagation()">
+            <h2 style="font-family: 'Cinzel', serif; color: var(--steam-gold); text-align: center; margin-bottom: 2rem;">
+                Selecciona una Carta per la Batalla
+            </h2>
+            <div id="battleCardGrid" class="gallery-grid" style="margin-bottom: 0;">
+            </div>
+        </div>
+    </div>
+
     <script>
         // Initialize
         let cards = [];
         let currentImageData = null;
+        let battleCard1 = null;
+        let battleCard2 = null;
+        let currentBattleSlot = null;
 
         // Theme Management
         function initTheme() {
@@ -1115,6 +1469,32 @@
             }
         }
 
+        // Render type effectiveness chart
+        function renderTypeChart() {
+            const chartContainer = document.getElementById('typeChart');
+            let html = '';
+            
+            for (const [type, effectiveness] of Object.entries(typeEffectiveness)) {
+                html += `
+                    <div class="type-card">
+                        <div class="type-card-header">${disciplineNames[type]}</div>
+                        <div class="type-relationships">
+                            <div class="type-relation strong">
+                                <span class="type-relation-icon">↗️</span>
+                                <span><strong>Forta contra:</strong> ${effectiveness.strong.map(t => disciplineNames[t]).join(', ')}</span>
+                            </div>
+                            <div class="type-relation weak">
+                                <span class="type-relation-icon">↘️</span>
+                                <span><strong>Dèbil contra:</strong> ${effectiveness.weak.map(t => disciplineNames[t]).join(', ')}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            chartContainer.innerHTML = html;
+        }
+
         // Load cards from localStorage
         function loadCards() {
             const saved = localStorage.getItem('stemCards');
@@ -1135,6 +1515,12 @@
             instructions.classList.toggle('active');
         }
 
+        // Toggle type chart
+        function toggleTypeChart() {
+            const typeChart = document.getElementById('typeChartSection');
+            typeChart.classList.toggle('active');
+        }
+
         // Discipline translations
         const disciplineNames = {
             physics: 'Física',
@@ -1145,6 +1531,42 @@
             technology: 'Tecnologia',
             astronomy: 'Astronomia',
             medicine: 'Medicina'
+        };
+
+        // Type effectiveness system
+        const typeEffectiveness = {
+            physics: {
+                strong: ['engineering', 'astronomy'],
+                weak: ['mathematics', 'chemistry']
+            },
+            chemistry: {
+                strong: ['biology', 'medicine'],
+                weak: ['physics', 'mathematics']
+            },
+            biology: {
+                strong: ['medicine', 'astronomy'],
+                weak: ['chemistry', 'technology']
+            },
+            mathematics: {
+                strong: ['physics', 'technology'],
+                weak: ['engineering', 'medicine']
+            },
+            engineering: {
+                strong: ['technology', 'mathematics'],
+                weak: ['physics', 'biology']
+            },
+            technology: {
+                strong: ['engineering', 'medicine'],
+                weak: ['mathematics', 'biology']
+            },
+            astronomy: {
+                strong: ['physics', 'chemistry'],
+                weak: ['biology', 'technology']
+            },
+            medicine: {
+                strong: ['biology', 'chemistry'],
+                weak: ['technology', 'mathematics']
+            }
         };
 
         // Update preview in real-time
@@ -1160,10 +1582,28 @@
                 document.getElementById('previewDiscipline').textContent = disciplineNames[discipline].toUpperCase();
                 wrapper.style.setProperty('--card-gradient', `var(--${discipline})`);
                 wrapper.querySelector('::before') && (wrapper.style.background = `var(--${discipline})`);
+                
+                // Update type effectiveness preview
+                updatePreviewTypeEffectiveness(discipline);
             } else {
                 document.getElementById('previewDiscipline').textContent = 'DISCIPLINA';
+                // Reset type effectiveness
+                const typesInfo = document.getElementById('previewTypesInfo');
+                typesInfo.querySelector('.strong .types-badge-text').textContent = 'Selecciona disciplina';
+                typesInfo.querySelector('.weak .types-badge-text').textContent = 'Selecciona disciplina';
             }
         });
+
+        function updatePreviewTypeEffectiveness(discipline) {
+            const effectiveness = typeEffectiveness[discipline];
+            const typesInfo = document.getElementById('previewTypesInfo');
+            
+            const strongAgainst = effectiveness.strong.map(t => disciplineNames[t]).join(', ');
+            const weakAgainst = effectiveness.weak.map(t => disciplineNames[t]).join(', ');
+            
+            typesInfo.querySelector('.strong .types-badge-text').textContent = strongAgainst;
+            typesInfo.querySelector('.weak .types-badge-text').textContent = weakAgainst;
+        }
 
         document.getElementById('rarity').addEventListener('change', function(e) {
             const rarity = parseInt(e.target.value) || 1;
@@ -1242,8 +1682,237 @@
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeModal();
+                closeBattleSelector();
             }
         });
+
+        // Battle Mode Functions
+        function openBattleCardSelector(slotNumber) {
+            if (cards.length === 0) {
+                alert('⚠️ Primer has de crear cartes a la galeria!');
+                return;
+            }
+
+            currentBattleSlot = slotNumber;
+            const modal = document.getElementById('battleSelectorModal');
+            const grid = document.getElementById('battleCardGrid');
+            
+            // Render available cards
+            grid.innerHTML = cards.map(card => `
+                <div class="gallery-card" onclick="selectBattleCard(${card.id})" style="cursor: pointer;">
+                    ${generateCardHTML(card)}
+                </div>
+            `).join('');
+            
+            modal.classList.add('active');
+        }
+
+        function closeBattleSelector() {
+            const modal = document.getElementById('battleSelectorModal');
+            modal.classList.remove('active');
+            currentBattleSlot = null;
+        }
+
+        function selectBattleCard(cardId) {
+            const card = cards.find(c => c.id === cardId);
+            if (!card) return;
+
+            if (currentBattleSlot === 1) {
+                battleCard1 = card;
+                document.getElementById('battleSlot1').innerHTML = generateCardHTML(card);
+                document.getElementById('battleSlot1').classList.add('filled');
+            } else {
+                battleCard2 = card;
+                document.getElementById('battleSlot2').innerHTML = generateCardHTML(card);
+                document.getElementById('battleSlot2').classList.add('filled');
+            }
+
+            closeBattleSelector();
+
+            // Enable battle button if both cards selected
+            if (battleCard1 && battleCard2) {
+                document.getElementById('battleBtn').disabled = false;
+            }
+        }
+
+        function calculateBattleScore(card) {
+            let score = 0;
+            
+            // Base score from rarity (10-50 points)
+            score += (card.rarity || 1) * 10;
+            
+            // Bonus points based on dates (historical significance)
+            const dates = card.dates.split('-');
+            const birthYear = parseInt(dates[0]);
+            if (!isNaN(birthYear)) {
+                // Older scientists get slight bonus for being pioneers
+                if (birthYear < 1900) score += 15;
+                else if (birthYear < 1950) score += 10;
+                else if (birthYear < 1980) score += 5;
+            }
+            
+            // Discovery length bonus (more detailed = more points, max 20)
+            const discoveryLength = card.discovery.length;
+            score += Math.min(20, Math.floor(discoveryLength / 20));
+            
+            return score;
+        }
+
+        function startBattle() {
+            if (!battleCard1 || !battleCard2) {
+                alert('⚠️ Selecciona dues cartes primer!');
+                return;
+            }
+
+            // Calculate base scores
+            let score1 = calculateBattleScore(battleCard1);
+            let score2 = calculateBattleScore(battleCard2);
+
+            // Type effectiveness multiplier
+            const effectiveness1 = typeEffectiveness[battleCard1.discipline];
+            const effectiveness2 = typeEffectiveness[battleCard2.discipline];
+
+            let typeBonus1 = 0;
+            let typeBonus2 = 0;
+            let effectivenessText = '';
+
+            // Check if card1 has advantage
+            if (effectiveness1.strong.includes(battleCard2.discipline)) {
+                typeBonus1 = 30;
+                effectivenessText = `${battleCard1.name} té avantatge de tipus! ${disciplineNames[battleCard1.discipline]} és forta contra ${disciplineNames[battleCard2.discipline]}.`;
+            } else if (effectiveness1.weak.includes(battleCard2.discipline)) {
+                typeBonus1 = -15;
+                effectivenessText = `${battleCard1.name} té desavantatge de tipus. ${disciplineNames[battleCard1.discipline]} és dèbil contra ${disciplineNames[battleCard2.discipline]}.`;
+            }
+
+            // Check if card2 has advantage
+            if (effectiveness2.strong.includes(battleCard1.discipline)) {
+                typeBonus2 = 30;
+                effectivenessText = `${battleCard2.name} té avantatge de tipus! ${disciplineNames[battleCard2.discipline]} és forta contra ${disciplineNames[battleCard1.discipline]}.`;
+            } else if (effectiveness2.weak.includes(battleCard1.discipline)) {
+                typeBonus2 = -15;
+                effectivenessText = `${battleCard2.name} té desavantatge de tipus. ${disciplineNames[battleCard2.discipline]} és dèbil contra ${disciplineNames[battleCard1.discipline]}.`;
+            }
+
+            const finalScore1 = score1 + typeBonus1;
+            const finalScore2 = score2 + typeBonus2;
+
+            // Determine winner
+            let winner, winnerScore, loserScore, winnerCard, loserCard;
+            if (finalScore1 > finalScore2) {
+                winner = battleCard1.name;
+                winnerCard = battleCard1;
+                loserCard = battleCard2;
+                winnerScore = finalScore1;
+                loserScore = finalScore2;
+            } else if (finalScore2 > finalScore1) {
+                winner = battleCard2.name;
+                winnerCard = battleCard2;
+                loserCard = battleCard1;
+                winnerScore = finalScore2;
+                loserScore = finalScore1;
+            } else {
+                winner = 'Empat!';
+                winnerScore = finalScore1;
+                loserScore = finalScore2;
+            }
+
+            // Display results
+            const resultDiv = document.getElementById('battleResult');
+            const winnerDiv = document.getElementById('battleWinner');
+            const scoreDiv = document.getElementById('battleScore');
+            const explanationDiv = document.getElementById('battleExplanation');
+            const breakdownDiv = document.getElementById('scoreBreakdown');
+
+            if (winner === 'Empat!') {
+                winnerDiv.innerHTML = '🤝 Empat Tècnic!';
+                scoreDiv.innerHTML = `Puntuació: ${winnerScore} - ${loserScore}`;
+                explanationDiv.innerHTML = 'Totes dues científiques tenen la mateixa puntuació. Un reconeixement merescut per a ambdues!';
+            } else {
+                winnerDiv.innerHTML = `🏆 Guanya: ${winner}!`;
+                scoreDiv.innerHTML = `Puntuació: ${winnerScore} - ${loserScore}`;
+                explanationDiv.innerHTML = effectivenessText || 'Victoria basada en raresa i impacte històric!';
+            }
+
+            // Score breakdown
+            if (winner !== 'Empat!') {
+                breakdownDiv.innerHTML = `
+                    <div class="score-card">
+                        <div class="score-card-title">${winnerCard.name}</div>
+                        <div class="score-item">
+                            <span>Raresa (${winnerCard.rarity}★):</span>
+                            <span>+${(winnerCard.rarity || 1) * 10}</span>
+                        </div>
+                        <div class="score-item">
+                            <span>Avantatge de tipus:</span>
+                            <span>${typeBonus1 > 0 ? typeBonus1 : typeBonus2} ${typeBonus1 > 0 || typeBonus2 > 0 ? '✓' : typeBonus1 < 0 || typeBonus2 < 0 ? '✗' : '-'}</span>
+                        </div>
+                        <div class="score-item">
+                            <span>Altres factors:</span>
+                            <span>+${winnerScore - (winnerCard.rarity || 1) * 10 - (typeBonus1 > typeBonus2 ? typeBonus1 : typeBonus2)}</span>
+                        </div>
+                        <div class="score-item" style="border-top: 2px solid var(--steam-gold); margin-top: 0.5rem; padding-top: 0.5rem; font-weight: bold;">
+                            <span>TOTAL:</span>
+                            <span>${winnerScore}</span>
+                        </div>
+                    </div>
+                    <div class="score-card">
+                        <div class="score-card-title">${loserCard.name}</div>
+                        <div class="score-item">
+                            <span>Raresa (${loserCard.rarity}★):</span>
+                            <span>+${(loserCard.rarity || 1) * 10}</span>
+                        </div>
+                        <div class="score-item">
+                            <span>Avantatge de tipus:</span>
+                            <span>${typeBonus2 < typeBonus1 ? typeBonus2 : typeBonus1} ${typeBonus2 > typeBonus1 ? '✓' : typeBonus2 < typeBonus1 ? '✗' : '-'}</span>
+                        </div>
+                        <div class="score-item">
+                            <span>Altres factors:</span>
+                            <span>+${loserScore - (loserCard.rarity || 1) * 10 - (typeBonus2 < typeBonus1 ? typeBonus2 : typeBonus1)}</span>
+                        </div>
+                        <div class="score-item" style="border-top: 2px solid var(--steam-gold); margin-top: 0.5rem; padding-top: 0.5rem; font-weight: bold;">
+                            <span>TOTAL:</span>
+                            <span>${loserScore}</span>
+                        </div>
+                    </div>
+                `;
+            } else {
+                breakdownDiv.innerHTML = `
+                    <div class="score-card">
+                        <div class="score-card-title">${battleCard1.name}</div>
+                        <div class="score-item" style="font-weight: bold;">
+                            <span>TOTAL:</span>
+                            <span>${finalScore1}</span>
+                        </div>
+                    </div>
+                    <div class="score-card">
+                        <div class="score-card-title">${battleCard2.name}</div>
+                        <div class="score-item" style="font-weight: bold;">
+                            <span>TOTAL:</span>
+                            <span>${finalScore2}</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            resultDiv.classList.add('show');
+
+            // Scroll to results
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function resetBattle() {
+            battleCard1 = null;
+            battleCard2 = null;
+            currentBattleSlot = null;
+
+            document.getElementById('battleSlot1').innerHTML = '<div class="battle-placeholder">Clica per seleccionar una carta</div>';
+            document.getElementById('battleSlot2').innerHTML = '<div class="battle-placeholder">Clica per seleccionar una carta</div>';
+            document.getElementById('battleSlot1').classList.remove('filled');
+            document.getElementById('battleSlot2').classList.remove('filled');
+            document.getElementById('battleBtn').disabled = true;
+            document.getElementById('battleResult').classList.remove('show');
+        }
 
         // Add card to gallery
         function addToGallery() {
@@ -1305,6 +1974,11 @@
                 rarityStars += '<span class="rarity-star">⭐</span>';
             }
             
+            // Get type effectiveness for this discipline
+            const effectiveness = typeEffectiveness[card.discipline];
+            const strongAgainst = effectiveness.strong.map(t => disciplineNames[t]).join(', ');
+            const weakAgainst = effectiveness.weak.map(t => disciplineNames[t]).join(', ');
+            
             return `
                 <div class="card" id="card-${card.id}" onclick="openModal(this)">
                     <div class="card-corner-decoration"></div>
@@ -1332,6 +2006,17 @@
                             ${card.discovery}
                         </div>
                         <div class="card-quote">"${card.quote}"</div>
+                    </div>
+                    
+                    <div class="card-types-info">
+                        <div class="types-badge strong">
+                            <span class="types-badge-icon">↗️</span>
+                            <span class="types-badge-text">${strongAgainst}</span>
+                        </div>
+                        <div class="types-badge weak">
+                            <span class="types-badge-icon">↘️</span>
+                            <span class="types-badge-text">${weakAgainst}</span>
+                        </div>
                     </div>
                 </div>
             `;
@@ -1476,6 +2161,7 @@
 
         // Initialize app
         initTheme();
+        renderTypeChart();
         loadCards();
     </script>
 </body>
